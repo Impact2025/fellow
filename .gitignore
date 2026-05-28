@@ -1,0 +1,6 @@
+.claude/
+fellow-travellers/node_modules/
+fellow-travellers/.next/
+fellow-travellers/.env
+fellow-travellers/.env.local
+fellow-travellers/.env*.local

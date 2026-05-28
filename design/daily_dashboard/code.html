@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Haven | Daily Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#adceb9",
+                      "secondary-container": "#cce2f8",
+                      "secondary-fixed-dim": "#b3c9de",
+                      "on-background": "#1b1c19",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#f2f1ec",
+                      "surface-bright": "#fbf9f4",
+                      "surface": "#fbf9f4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#424843",
+                      "on-secondary-fixed-variant": "#34495a",
+                      "outline": "#727973",
+                      "primary-container": "#7a9a86",
+                      "background": "#fbf9f4",
+                      "error": "#ba1a1a",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#022113",
+                      "surface-dim": "#dbdad5",
+                      "on-primary-container": "#133122",
+                      "surface-container-highest": "#e4e2dd",
+                      "tertiary": "#8a4f38",
+                      "outline-variant": "#c2c8c1",
+                      "primary-fixed-dim": "#adceb9",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#2f4d3c",
+                      "on-secondary-container": "#506577",
+                      "primary": "#476553",
+                      "tertiary-container": "#c78168",
+                      "secondary": "#4b6173",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#e4e2dd",
+                      "inverse-surface": "#30312e",
+                      "surface-container-high": "#eae8e3",
+                      "on-tertiary-fixed": "#370e01",
+                      "primary-fixed": "#c8ebd4",
+                      "tertiary-fixed": "#ffdbcf",
+                      "surface-container-low": "#f5f3ee",
+                      "on-secondary-fixed": "#051d2d",
+                      "tertiary-fixed-dim": "#ffb59b",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#6e3823",
+                      "secondary-fixed": "#cfe5fb",
+                      "surface-tint": "#476553",
+                      "on-surface": "#1b1c19",
+                      "on-tertiary-container": "#4c1d0b",
+                      "surface-container": "#f0eee9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "stack-md": "24px",
+                      "container-margin": "24px",
+                      "stack-sm": "12px",
+                      "stack-lg": "48px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F7F5F0;
+            color: #1b1c19;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #476553;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(71,101,83,0.15);
+        }
+        .slider-thumb::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #476553;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(71,101,83,0.15);
+        }
+        .atmospheric-fade {
+            background: linear-gradient(180deg, rgba(247, 245, 240, 0) 0%, rgba(247, 245, 240, 1) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80">
+<div class="flex justify-between items-center px-container-margin h-16 w-full max-w-screen-md mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="spa">spa</span>
+<span class="font-headline-md text-headline-md text-primary tracking-tight">Haven</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity" data-icon="notifications">notifications</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-32 px-container-margin max-w-screen-md mx-auto min-h-screen">
+<!-- Hero Section -->
+<section class="mb-stack-lg animate-in fade-in slide-in-from-bottom-4 duration-1000">
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<!-- Soft geometric sun representation -->
+<div class="absolute inset-0 bg-primary-fixed opacity-20 rounded-full blur-2xl animate-pulse"></div>
+<span class="material-symbols-outlined text-primary text-[64px]" data-icon="wb_sunny" style="font-variation-settings: 'wght' 200;">wb_sunny</span>
+</div>
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Good morning.</h1>
+<p class="text-on-surface-variant font-body-md opacity-70">Welcome to your quiet space.</p>
+</div>
+</div>
+</section>
+<!-- HALT Tracker Section -->
+<section class="mb-stack-lg">
+<div class="bg-surface-container-low rounded-3xl p-8 space-y-8">
+<header class="text-center">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">How are you feeling right now?</h2>
+<p class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase opacity-60">Daily Check-in</p>
+</header>
+<div class="grid grid-cols-1 gap-10">
+<!-- Hungry -->
+<div class="space-y-4">
+<div class="flex justify-between items-center px-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Hungry</span>
+<span class="font-label-sm text-label-sm text-primary opacity-80" id="val-hungry">Satisfied</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none slider-thumb cursor-pointer accent-primary" max="100" min="0" oninput="updateVal('hungry', this.value, ['Satisfied', 'Peckish', 'Very Hungry'])" type="range" value="20"/>
+</div>
+<!-- Angry -->
+<div class="space-y-4">
+<div class="flex justify-between items-center px-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Angry</span>
+<span class="font-label-sm text-label-sm text-primary opacity-80" id="val-angry">Peaceful</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none slider-thumb cursor-pointer accent-primary" max="100" min="0" oninput="updateVal('angry', this.value, ['Peaceful', 'Frustrated', 'Overwhelmed'])" type="range" value="10"/>
+</div>
+<!-- Lonely -->
+<div class="space-y-4">
+<div class="flex justify-between items-center px-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Lonely</span>
+<span class="font-label-sm text-label-sm text-primary opacity-80" id="val-lonely">Connected</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none slider-thumb cursor-pointer accent-primary" max="100" min="0" oninput="updateVal('lonely', this.value, ['Connected', 'Quiet', 'Need a chat'])" type="range" value="15"/>
+</div>
+<!-- Tired -->
+<div class="space-y-4">
+<div class="flex justify-between items-center px-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Tired</span>
+<span class="font-label-sm text-label-sm text-primary opacity-80" id="val-tired">Rested</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none slider-thumb cursor-pointer accent-primary" max="100" min="0" oninput="updateVal('tired', this.value, ['Rested', 'Drowsy', 'Exhausted'])" type="range" value="30"/>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md py-4 rounded-full hover:opacity-90 transition-all active:scale-95">
+                        Log my status
+                    </button>
+</div>
+</div>
+</section>
+<!-- Suggested Guidance (Bento-lite) -->
+<section class="space-y-gutter">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest px-1">Gentle Suggestions</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="aspect-square rounded-3xl bg-primary-fixed/30 p-6 flex flex-col justify-between overflow-hidden relative group">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="self_improvement">self_improvement</span>
+<p class="font-label-md text-on-primary-fixed-variant leading-tight relative z-10">5-minute breathing</p>
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+</div>
+<div class="aspect-square rounded-3xl bg-secondary-fixed/30 p-6 flex flex-col justify-between overflow-hidden relative group">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="edit_note">edit_note</span>
+<p class="font-label-md text-on-secondary-fixed-variant leading-tight relative z-10">Morning journal prompt</p>
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-secondary rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity"></div>
+</div>
+</div>
+</section>
+<!-- Background Image/Aesthetic Element -->
+<section class="mt-stack-lg rounded-3xl overflow-hidden h-48 relative shadow-sm">
+<img alt="Atmospheric Landscape" class="w-full h-full object-cover grayscale-[0.2] brightness-105" data-alt="A serene landscape of soft rolling hills at dawn, covered in a light morning mist. The lighting is diffused and ethereal, using a palette of sage green, warm sand, and soft cream. The image conveys a sense of profound psychological safety, minimalist tranquility, and a quiet digital sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIZ1u7O_JFcexSnE58b7dpew9o74ggUw2jMQgQ8FaFQLe7zN7FkTIyikpfzjduZq3IajnhZk_-PR0sQAa9C2cJcGUgEIE9_r-dlHQQQgI34_v8TJZp4p3G8-L3a-OEv-af15FGMN3Asvgppe5_usPjV2_k_y7viin6W0uVBspdq7sdosSywpjYp7cFWUnHLvALS8ph_6MLscDVt83FPyDgCjt9rwduAXUYxrq4A3h3c77WLQiIOPmPe7C31oMyd4aFIXR7mAncAds"/>
+<div class="absolute inset-0 atmospheric-fade opacity-40"></div>
+<div class="absolute bottom-6 left-6 text-white drop-shadow-md">
+<p class="font-label-sm uppercase tracking-tighter opacity-80">Today's Quote</p>
+<p class="font-body-lg italic">"Quiet is the new loud."</p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-8 py-4 bg-surface/90 dark:bg-surface-container-lowest/90 z-50 pb-safe rounded-t-xl shadow-[0_-4px_24px_rgba(71,101,83,0.05)] backdrop-blur-md">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container/20 dark:bg-primary-container/40 text-primary dark:text-primary-fixed rounded-full p-3 scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="home_max" style="font-variation-settings: 'FILL' 1;">home_max</span>
+</a>
+<!-- Tools (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-3 hover:bg-surface-variant/30 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="grid_view">grid_view</span>
+</a>
+<!-- Messages (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-3 hover:bg-surface-variant/30 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="bubble_chart">bubble_chart</span>
+</a>
+</nav>
+<script>
+        function updateVal(id, value, states) {
+            const el = document.getElementById(`val-${id}`);
+            if (value < 33) {
+                el.innerText = states[0];
+            } else if (value < 66) {
+                el.innerText = states[1];
+            } else {
+                el.innerText = states[2];
+            }
+        }
+
+        // Simple interaction for the "Gentle Suggestions"
+        document.querySelectorAll('section .grid > div').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body></html>

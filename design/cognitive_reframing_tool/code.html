@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Haven - Cognitive Restructuring</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#adceb9",
+                      "secondary-container": "#cce2f8",
+                      "secondary-fixed-dim": "#b3c9de",
+                      "on-background": "#1b1c19",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#f2f1ec",
+                      "surface-bright": "#fbf9f4",
+                      "surface": "#fbf9f4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#424843",
+                      "on-secondary-fixed-variant": "#34495a",
+                      "outline": "#727973",
+                      "primary-container": "#7a9a86",
+                      "background": "#fbf9f4",
+                      "error": "#ba1a1a",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#022113",
+                      "surface-dim": "#dbdad5",
+                      "on-primary-container": "#133122",
+                      "surface-container-highest": "#e4e2dd",
+                      "tertiary": "#8a4f38",
+                      "outline-variant": "#c2c8c1",
+                      "primary-fixed-dim": "#adceb9",
+                      "on-secondary": "#ffffff",
+                      "on-primary-fixed-variant": "#2f4d3c",
+                      "on-secondary-container": "#506577",
+                      "primary": "#476553",
+                      "tertiary-container": "#c78168",
+                      "secondary": "#4b6173",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#e4e2dd",
+                      "inverse-surface": "#30312e",
+                      "surface-container-high": "#eae8e3",
+                      "on-tertiary-fixed": "#370e01",
+                      "primary-fixed": "#c8ebd4",
+                      "tertiary-fixed": "#ffdbcf",
+                      "surface-container-low": "#f5f3ee",
+                      "on-secondary-fixed": "#051d2d",
+                      "tertiary-fixed-dim": "#ffb59b",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#6e3823",
+                      "secondary-fixed": "#cfe5fb",
+                      "surface-tint": "#476553",
+                      "on-surface": "#1b1c19",
+                      "on-tertiary-container": "#4c1d0b",
+                      "surface-container": "#f0eee9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "stack-md": "24px",
+                      "container-margin": "24px",
+                      "stack-sm": "12px",
+                      "stack-lg": "48px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F7F5F0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .text-area-focus:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .stagger-1 { animation: fadeInUp 0.8s ease-out forwards; }
+        .stagger-2 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+        .stagger-3 { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-surface/80 flex justify-between items-center px-container-margin h-16 w-full max-w-screen-md mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="spa">spa</span>
+<h1 class="font-headline-md text-headline-md-mobile text-primary tracking-tight">Reflect</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/30 transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="close">close</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 pb-32 px-container-margin max-w-screen-md mx-auto space-y-stack-lg min-h-screen">
+<!-- Intro Section -->
+<section class="stagger-1 space-y-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Digital Sanctuary</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[85%]">Gently transform heavy thoughts into lighter ones. Let's observe and then shift your perspective.</p>
+</section>
+<!-- Tool Layout -->
+<div class="space-y-stack-md">
+<!-- Observation Field -->
+<div class="stagger-2 group">
+<label class="font-label-sm text-label-sm text-on-surface-variant mb-2 block uppercase tracking-wider" for="observation">Observation</label>
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low border-l-4 border-[#D38B71] transition-all focus-within:bg-surface-container shadow-sm">
+<textarea class="w-full min-h-[140px] p-5 bg-transparent border-none text-area-focus font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant resize-none" id="observation" placeholder="What is the automatic negative thought today?"></textarea>
+<div class="absolute bottom-4 right-4 opacity-20 group-focus-within:opacity-40 transition-opacity">
+<span class="material-symbols-outlined text-tertiary" data-icon="visibility">visibility</span>
+</div>
+</div>
+<p class="mt-2 text-label-sm text-outline px-1 italic">Describe the thought exactly as it appeared, without judgment.</p>
+</div>
+<!-- Connector Graphic -->
+<div class="flex justify-center stagger-2 opacity-50">
+<div class="h-8 w-px bg-gradient-to-b from-[#D38B71] to-[#8EA4B8]"></div>
+</div>
+<!-- Perspective Field -->
+<div class="stagger-3 group">
+<label class="font-label-sm text-label-sm text-on-surface-variant mb-2 block uppercase tracking-wider" for="perspective">Perspective</label>
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low border-l-4 border-[#8EA4B8] transition-all focus-within:bg-surface-container shadow-sm">
+<textarea class="w-full min-h-[140px] p-5 bg-transparent border-none text-area-focus font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant resize-none" id="perspective" placeholder="How would a compassionate friend respond?"></textarea>
+<div class="absolute bottom-4 right-4 opacity-20 group-focus-within:opacity-40 transition-opacity">
+<span class="material-symbols-outlined text-secondary" data-icon="favorite">favorite</span>
+</div>
+</div>
+<p class="mt-2 text-label-sm text-outline px-1 italic">What is a kinder, more balanced truth?</p>
+</div>
+</div>
+<!-- Abstract Decorative Element -->
+<div class="flex justify-center py-stack-md stagger-3">
+<div class="w-24 h-24 relative">
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-2xl animate-pulse"></div>
+<div class="absolute inset-4 border border-primary/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute inset-8 border border-secondary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Shell -->
+<div class="fixed bottom-0 left-0 w-full flex justify-center items-center px-container-margin py-8 z-50">
+<div class="w-full max-w-screen-md">
+<button class="w-full py-5 bg-primary text-white rounded-full font-label-md text-label-md transition-all duration-300 shadow-xl shadow-primary/10 flex items-center justify-center gap-2 opacity-50 active:scale-95 cursor-not-allowed" disabled="" id="seal-button">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+                Seal Perspective
+            </button>
+</div>
+</div>
+<!-- Hidden Success State Overlay -->
+<div class="fixed inset-0 z-[100] bg-surface flex flex-col items-center justify-center p-container-margin text-center hidden pointer-events-none opacity-0 transition-opacity duration-700" id="success-overlay">
+<div class="w-32 h-32 bg-primary-fixed-dim rounded-full flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary text-5xl animate-bounce" data-icon="check_circle">check_circle</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-2">Perspective Sealed</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your mind is lighter now. Take a deep breath.</p>
+</div>
+<script>
+        const perspectiveField = document.getElementById('perspective');
+        const sealButton = document.getElementById('seal-button');
+        const successOverlay = document.getElementById('success-overlay');
+
+        // Logic for Seal Button Activation
+        perspectiveField.addEventListener('input', (e) => {
+            const hasText = e.target.value.trim().length > 0;
+            if (hasText) {
+                sealButton.disabled = false;
+                sealButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                sealButton.classList.add('hover:opacity-90', 'cursor-pointer');
+            } else {
+                sealButton.disabled = true;
+                sealButton.classList.add('opacity-50', 'cursor-not-allowed');
+                sealButton.classList.remove('hover:opacity-90', 'cursor-pointer');
+            }
+        });
+
+        // Micro-interaction for sealing
+        sealButton.addEventListener('click', () => {
+            if (!sealButton.disabled) {
+                successOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    successOverlay.classList.replace('opacity-0', 'opacity-100');
+                    successOverlay.classList.remove('pointer-events-none');
+                }, 10);
+                
+                // Reset state after 3 seconds
+                setTimeout(() => {
+                    successOverlay.classList.replace('opacity-100', 'opacity-0');
+                    setTimeout(() => {
+                        successOverlay.classList.add('hidden', 'pointer-events-none');
+                        perspectiveField.value = '';
+                        document.getElementById('observation').value = '';
+                        sealButton.disabled = true;
+                        sealButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    }, 700);
+                }, 3000);
+            }
+        });
+
+        // Atmospheric parallax hint
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const decorations = document.querySelectorAll('.animate-pulse');
+            decorations.forEach(el => {
+                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+    </script>
+<!-- Visual Guidance Images -->
+<div class="hidden">
+<img data-alt="A serene minimalist digital art illustration of a calm sanctuary room with soft warm morning light casting long shadows across a textured sand-colored wall. The aesthetic is clean and meditative with a single sage green leaf floating gently in the center of the frame. High-end modern photography style with extreme depth of field and soft ambient glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPSdjdI9WUt8V-yu74rxzzk5MvoFaaej6RiRp8bRhlpW3wgLeq9KNKkMjWQSSw_hfbF3NAjdlt-XTN6BIN8J5tBRTW5YpPqERTtMSAeedc9TO0qVX37Qi81YEcJQshF1IdOjW8fpw7IpuBFRyzDCLqwg2h-J1uzF2DS0NJaRVSfBPkaFnWZLFLdPYk-6sb2HOOjPV5dlymsFASP8U1LBpnVTT61vwtcr6qaoI7UCecu72XSM32O96RL8s1sDYqdvFLBnJsPdjGKLM"/>
+<img data-alt="Abstract geometric landscape of soft-edged pebbles stacked in a perfect vertical balance against a hazy misty blue and dusty terracotta sky. The lighting is diffused and atmospheric, creating a sense of psychological safety and quietude. The color palette is strictly sage green, warm sand, and dusty blue, reflecting a high-end minimalist design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb8Bi-3O34oBDyr0tU2s0ciofiRr9HiLM1SgOOgy85ZEfKCEIp2bD1RbdJi1lut7hgw8Dx0EWBtuOcmNzce9zVyJp19JqZlNmJtJsN73HekuUSGjD-1GB_RHTmIaNpLu5ICZYcY1BIQIy62Dc1_jsAcU_N5nzx-zTQiijsJC3CGRnZVHHEeFI206_TwyhJmsQkJkADTpFIwj2dt1bh1YJl3buL9tLPlGozbupktot49qT6dF2GNMkxM7btbZHDmObcxXQs5-bjGIA"/>
+</div>
+</body></html>
