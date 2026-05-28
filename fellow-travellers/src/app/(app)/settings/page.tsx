@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { get, set } from "idb-keyval";
 
-const PASSPHRASE_SET_KEY  = "ft_passphrase_set_v1";
-const VAULT_KEY_BACKUP_KEY = "ft_vault_export_v1";
+const PASSPHRASE_SET_KEY = "ft_passphrase_set_v1";
 
 function SectionCard({
   title,
@@ -126,7 +125,6 @@ export default function SettingsPage() {
       return;
     }
     await set(PASSPHRASE_SET_KEY, true);
-    await set(VAULT_KEY_BACKUP_KEY, btoa(passphrase + "_v1_" + Date.now()));
     setPassphraseSet(true);
     setPassphraseSuccess(true);
     setShowPassphraseForm(false);
@@ -139,12 +137,10 @@ export default function SettingsPage() {
     setEmailError("");
     setEmailSending(true);
     try {
-      const storedKey = await get<string>(VAULT_KEY_BACKUP_KEY);
-      const keyToSend = storedKey ?? "ft_no_key_set_" + Date.now();
       const res = await fetch("/api/email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "backup-key", to: email, encryptedKey: keyToSend }),
+        body: JSON.stringify({ type: "passphrase-reminder", to: email }),
       });
       if (!res.ok) throw new Error();
       setEmailSent(true);
@@ -249,8 +245,8 @@ export default function SettingsPage() {
           )}
 
           <Row
-            label="Herstelsleutel e-mailen"
-            sublabel="Stuur je versleutelde herstelsleutel naar je e-mail. Bewaar hem veilig."
+            label="Wachtzin-herinnering e-mailen"
+            sublabel="Stuur jezelf een herinnering om je wachtzin veilig op te schrijven. Haven kan je wachtzin niet herstellen."
             action={
               emailSent ? (
                 <span className="text-label-md text-primary flex items-center gap-1.5 flex-shrink-0">

@@ -1,11 +1,10 @@
 import { z } from "zod";
-import { sendBackupKeyEmail, sendCrisisResourcesEmail } from "@/lib/email/resend";
+import { sendPassphraseReminderEmail, sendCrisisResourcesEmail } from "@/lib/email/resend";
 
 const schema = z.discriminatedUnion("type", [
   z.object({
-    type: z.literal("backup-key"),
+    type: z.literal("passphrase-reminder"),
     to: z.string().email(),
-    encryptedKey: z.string().min(10),
   }),
   z.object({
     type: z.literal("crisis-resources"),
@@ -23,8 +22,8 @@ export async function POST(req: Request) {
 
   const data = parsed.data;
 
-  if (data.type === "backup-key") {
-    const result = await sendBackupKeyEmail(data.to, data.encryptedKey);
+  if (data.type === "passphrase-reminder") {
+    const result = await sendPassphraseReminderEmail(data.to);
     return Response.json(result, { status: result.ok ? 200 : 500 });
   }
 

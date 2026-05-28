@@ -1,9 +1,12 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
+import { cookies } from "next/headers";
 import {
   LOVING_PARENT_SYSTEM_PROMPT,
   guardInput,
 } from "@/lib/ai/guardian";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth/session";
+import { checkRateLimit } from "@/lib/ai/rate-limiter";
 
 const openrouter = createOpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -15,6 +18,21 @@ const openrouter = createOpenAI({
 });
 
 export async function POST(req: Request) {
+  // Rate limiting — identificeer via sessie, dan IP als fallback
+  const cookieStore = await cookies();
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
+  const session = token ? await verifySessionToken(token) : null;
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const rateLimitKey = session?.userId ?? ip;
+
+  const { allowed, retryAfterMs } = checkRateLimit(rateLimitKey);
+  if (!allowed) {
+    return Response.json(
+      { type: "rate_limited", retryAfterMs },
+      { status: 429 }
+    );
+  }
+
   const { messages } = await req.json();
 
   const lastUserMsg: string =
@@ -29,7 +47,7 @@ export async function POST(req: Request) {
     model: openrouter("anthropic/claude-sonnet-4"),
     system: LOVING_PARENT_SYSTEM_PROMPT,
     messages,
-    maxOutputTokens: 500,
+    maxOutputTokens: 800,
   });
 
   return result.toTextStreamResponse();

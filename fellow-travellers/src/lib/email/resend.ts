@@ -84,35 +84,60 @@ export interface SendResult {
   error?: string;
 }
 
-export async function sendBackupKeyEmail(
-  to: string,
-  encryptedKey: string
-): Promise<SendResult> {
+export async function sendPassphraseReminderEmail(to: string): Promise<SendResult> {
   try {
     await getResend().emails.send({
       from: FROM_ADDRESS,
       to,
-      subject: "Haven — Je herstelsleutel",
+      subject: "Haven — Bewaar je wachtzin veilig",
       html: `
-        <div style="font-family: Inter, sans-serif; max-width: 480px; margin: 0 auto; color: #1b1c19;">
-          <div style="background: #c8ebd4; border-radius: 16px; padding: 32px; margin-bottom: 24px; text-align: center;">
-            <h1 style="color: #476553; font-size: 24px; margin: 0;">Haven</h1>
-          </div>
-          <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Je herstelsleutel</h2>
-          <p style="color: #424843; line-height: 1.6; margin-bottom: 24px;">
-            Bewaar deze sleutel op een veilige plek. Je hebt hem nodig om je versleutelde
-            notities te herstellen op een nieuw apparaat. Wij kunnen deze sleutel
-            <strong>niet</strong> opnieuw aanmaken.
-          </p>
-          <div style="background: #f0eee9; border-radius: 12px; padding: 20px; font-family: monospace; font-size: 14px; word-break: break-all; color: #1b1c19; margin-bottom: 24px;">
-            ${encryptedKey}
-          </div>
-          <p style="color: #727973; font-size: 13px; line-height: 1.5;">
-            Heb je dit niet aangevraagd? Negeer dan deze e-mail. Je account blijft veilig.<br/><br/>
-            Haven · Privacy is your right · <a href="https://fellow-travellers.com" style="color: #476553;">fellow-travellers.com</a>
-          </p>
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:20px;background:#F7F5F0;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;">
+  <div style="max-width:480px;margin:0 auto;">
+    <div style="text-align:center;padding:40px 0 28px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;">
+        <div style="width:40px;height:40px;background:#C8EBD4;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;">
+          <span style="font-size:20px;">🛡</span>
         </div>
-      `,
+        <span style="font-size:22px;font-weight:700;color:#476553;letter-spacing:-0.02em;">Haven</span>
+      </div>
+    </div>
+    <div style="background:#ffffff;border-radius:28px;padding:40px 36px;box-shadow:0 2px 12px rgba(71,101,83,0.08);">
+      <h1 style="margin:0 0 10px;font-size:22px;font-weight:700;color:#1B1C19;letter-spacing:-0.02em;">
+        Jouw wachtzin, jouw sleutel.
+      </h1>
+      <p style="margin:0 0 20px;font-size:15px;color:#424843;line-height:1.65;">
+        Haven gebruikt <strong>zero-knowledge encryptie</strong>. Alleen jij hebt toegang
+        tot je notities — maar dat betekent ook dat wij je wachtzin nooit kennen of kunnen herstellen.
+      </p>
+      <div style="background:#F0F7F3;border-left:4px solid #476553;border-radius:8px;padding:16px 18px;margin-bottom:24px;">
+        <p style="margin:0;font-size:14px;color:#2D4A38;line-height:1.6;">
+          <strong>Schrijf je wachtzin op een veilige plek</strong> — een fysiek notitieboekje,
+          een wachtwoordmanager, of een vertrouwd document dat niet online staat.
+          Zonder je wachtzin zijn je versleutelde notities ontoegankelijk, ook voor ons.
+        </p>
+      </div>
+      <p style="margin:0 0 8px;font-size:14px;color:#727973;line-height:1.6;">Een sterke wachtzin:</p>
+      <ul style="margin:0 0 24px;padding-left:20px;font-size:14px;color:#424843;line-height:1.8;">
+        <li>Minstens 12 tekens lang</li>
+        <li>Iets dat je onthoudt maar anderen niet raden</li>
+        <li>Niet hetzelfde als je e-mailwachtwoord</li>
+      </ul>
+      <div style="background:#F7F5F0;border-radius:14px;padding:16px 18px;">
+        <p style="margin:0;font-size:12px;color:#727973;line-height:1.6;">
+          Heb je dit niet aangevraagd? Dan is er niets aan de hand — je account blijft veilig.
+        </p>
+      </div>
+    </div>
+    <div style="text-align:center;padding:28px 0 0;">
+      <p style="margin:0;font-size:12px;color:#9E9E9E;">Haven &middot; Privacy is your right</p>
+    </div>
+  </div>
+</body>
+</html>
+      `.trim(),
     });
     return { ok: true };
   } catch (err) {

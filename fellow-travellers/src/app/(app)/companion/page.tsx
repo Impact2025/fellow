@@ -113,6 +113,16 @@ export default function CompanionPage() {
         body: JSON.stringify({ messages: history }),
       });
 
+      if (res.status === 429) {
+        setMessages((prev) => prev.map((m) =>
+          m.id === assistantId
+            ? { ...m, isStreaming: false, content: "Je hebt het maximale aantal berichten voor dit uur bereikt. Neem even een pauze — je kunt straks verdergaan." }
+            : m
+        ));
+        setIsLoading(false);
+        return;
+      }
+
       if (!res.ok) throw new Error("API error");
 
       const contentType = res.headers.get("content-type") ?? "";
@@ -199,7 +209,7 @@ export default function CompanionPage() {
           <div className="inline-flex items-center gap-2 bg-surface-container px-4 py-2 rounded-full">
             <span className="material-symbols-outlined text-primary text-[14px]">lock</span>
             <span className="text-label-sm text-on-surface-variant font-normal tracking-normal">
-              Berichten verlaten dit apparaat niet
+              AI via OpenRouter · Notities versleuteld op dit apparaat
             </span>
           </div>
         </div>
