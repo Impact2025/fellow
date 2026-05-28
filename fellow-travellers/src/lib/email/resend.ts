@@ -4,7 +4,7 @@ function getResend() {
   return new Resend(process.env.RESEND_API_KEY ?? "missing");
 }
 
-export const FROM_ADDRESS = "Haven <noreply@fellow-travellers.com>";
+export const FROM_ADDRESS = "Haven <hello@fellow-travellers.com>";
 
 export async function sendMagicLinkEmail(
   to: string,

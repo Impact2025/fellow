@@ -84,3 +84,15 @@ export const peerMessages = pgTable("peer_messages", {
   cooldownUntil: timestamp("cooldown_until"),
   isAudio: boolean("is_audio").default(false).notNull(),
 });
+
+// Anoniem matching-profiel — server ziet NOOIT naam of exacte locatie
+// supportVector: JSON array van 13 floats (0-1), zie lib/matching/vectorize.ts
+// regionCode: 2-letter provinciecode (NL) — nooit postcode of gemeente
+export const matchProfiles = pgTable("match_profiles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  sessionHash: text("session_hash").notNull().unique(),
+  alias: text("alias").notNull(),
+  supportVector: text("support_vector").notNull(),
+  regionCode: text("region_code").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

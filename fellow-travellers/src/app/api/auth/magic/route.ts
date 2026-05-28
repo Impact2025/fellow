@@ -22,8 +22,8 @@ export async function POST(req: Request) {
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
     const magicUrl = `${appUrl}/api/auth/verify?token=${encodeURIComponent(token)}`;
     await sendMagicLinkEmail(email, magicUrl);
-  } catch {
-    // Silent fail
+  } catch (err) {
+    console.error("[magic-link] failed:", err);
   }
 
   return Response.json({ ok: true });
