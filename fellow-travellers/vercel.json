@@ -1,5 +1,5 @@
 {
-  "regions": ["ams1"],
+  "regions": ["cdg1"],
   "headers": [
     {
       "source": "/(.*)",
