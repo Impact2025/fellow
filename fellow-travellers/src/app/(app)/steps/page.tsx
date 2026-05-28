@@ -1,11 +1,24 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { STEPS } from "@/lib/steps/content";
+import { useSession } from "@/hooks/useSession";
 
 const PACING_LABEL = { slow: "Rustig tempo", medium: "Eigen tempo", normal: "Flexibel" };
 
 export default function StepsPage() {
+  const sessionId = useSession();
+  const [visitedSteps, setVisitedSteps] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!sessionId) return;
+    fetch(`/api/steps?sessionId=${sessionId}`)
+      .then((r) => r.json())
+      .then((data: { visited: number[] }) => setVisitedSteps(data.visited ?? []))
+      .catch(() => {});
+  }, [sessionId]);
+
   return (
     <main className="pb-28 max-w-screen-md mx-auto min-h-screen">
 
@@ -68,13 +81,23 @@ export default function StepsPage() {
                 >
                   {step.icon}
                 </span>
-                {/* Step number */}
-                <span
-                  className="absolute top-1 right-1.5 text-[10px] font-bold leading-none"
-                  style={{ color: step.color + "88" }}
-                >
-                  {step.id}
-                </span>
+                {/* Visited badge */}
+                {visitedSteps.includes(step.id) ? (
+                  <span
+                    className="absolute top-1 right-1 w-4 h-4 rounded-full bg-primary flex items-center justify-center"
+                  >
+                    <span className="material-symbols-outlined text-on-primary" style={{ fontSize: "11px", fontVariationSettings: "'FILL' 1, 'wght' 700" }}>
+                      check
+                    </span>
+                  </span>
+                ) : (
+                  <span
+                    className="absolute top-1 right-1.5 text-[10px] font-bold leading-none"
+                    style={{ color: step.color + "88" }}
+                  >
+                    {step.id}
+                  </span>
+                )}
               </div>
 
               {/* Text */}
@@ -97,6 +120,39 @@ export default function StepsPage() {
               </div>
             </Link>
           ))}
+        </section>
+
+        {/* ── Verder verkennen ── */}
+        <section className="space-y-3 animate-fade-up-3">
+          <h3 className="text-label-sm text-on-surface-variant uppercase tracking-widest px-1">
+            Verder verkennen
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <Link
+              href="/steps/promises"
+              className="p-5 rounded-2xl bg-secondary-fixed/30 flex flex-col gap-3 hover:bg-secondary-fixed/50 active:scale-[0.98] transition-all group"
+            >
+              <span className="material-symbols-outlined text-secondary text-[24px]" style={{ fontVariationSettings: "'wght' 200" }}>
+                stars
+              </span>
+              <div>
+                <p className="text-label-md text-on-surface font-medium leading-tight">De 12 Beloften</p>
+                <p className="text-label-sm text-on-surface-variant font-normal mt-0.5">Wat herstel je brengt</p>
+              </div>
+            </Link>
+            <Link
+              href="/steps/traditions"
+              className="p-5 rounded-2xl bg-tertiary-fixed/30 flex flex-col gap-3 hover:bg-tertiary-fixed/50 active:scale-[0.98] transition-all group"
+            >
+              <span className="material-symbols-outlined text-tertiary text-[24px]" style={{ fontVariationSettings: "'wght' 200" }}>
+                account_tree
+              </span>
+              <div>
+                <p className="text-label-md text-on-surface font-medium leading-tight">De 12 Tradities</p>
+                <p className="text-label-sm text-on-surface-variant font-normal mt-0.5">De grondslagen van ACA</p>
+              </div>
+            </Link>
+          </div>
         </section>
 
         {/* ── Footnote ── */}

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "@/hooks/useSession";
 import { deriveKey, encryptEntry } from "@/lib/crypto/vault";
+import ProgressCard from "@/components/dashboard/ProgressCard";
 
 const HALT_ITEMS = [
   { id: "hungry", label: "Hungry", emoji: "🍃", states: ["Voldaan", "Een beetje", "Heel hongerig"] },
@@ -45,6 +46,15 @@ export default function DashboardPage() {
   });
   const [logged, setLogged]   = useState(false);
   const [logging, setLogging] = useState(false);
+  const [visitedSteps, setVisitedSteps] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!sessionId) return;
+    fetch(`/api/steps?sessionId=${sessionId}`)
+      .then((r) => r.json())
+      .then((data: { visited: number[] }) => setVisitedSteps(data.visited ?? []))
+      .catch(() => {});
+  }, [sessionId]);
 
   const handleLog = async () => {
     if (logging || logged) return;
@@ -196,6 +206,11 @@ export default function DashboardPage() {
               <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-secondary rounded-full blur-3xl opacity-10 group-hover:opacity-25 transition-opacity duration-500" />
             </Link>
           </div>
+        </section>
+
+        {/* ── Voortgang ── */}
+        <section className="mt-4 stagger-4">
+          <ProgressCard visitedSteps={visitedSteps} />
         </section>
 
         {/* ── Quick links ── */}
