@@ -20,9 +20,8 @@ export function useSession(): string | null {
         setSessionId(data.sessionId);
       })
       .catch(() => {
-        const fallback = crypto.randomUUID();
-        localStorage.setItem(SESSION_KEY, fallback);
-        setSessionId(fallback);
+        // Middleware beschermt de route — als dit faalt is er een netwerk probleem
+        setSessionId(null);
       });
   }, []);
 

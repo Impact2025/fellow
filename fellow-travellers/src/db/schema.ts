@@ -8,8 +8,27 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 
+// Gebruikers geïdentificeerd via SHA-256 hash van e-mailadres — nooit plaintext
+export const users = pgTable("users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  emailHash: text("email_hash").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastLoginAt: timestamp("last_login_at").defaultNow().notNull(),
+});
+
+// Magic link tokens — plaintext e-mail alleen hier, maximaal 15 minuten, eenmalig
+export const magicTokens = pgTable("magic_tokens", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  token: text("token").notNull().unique(),
+  email: text("email").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  usedAt: timestamp("used_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const sessions = pgTable("sessions", {
   id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   lastActive: timestamp("last_active").defaultNow().notNull(),
 });

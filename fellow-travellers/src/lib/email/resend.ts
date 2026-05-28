@@ -6,6 +6,79 @@ function getResend() {
 
 export const FROM_ADDRESS = "Haven <noreply@fellow-travellers.com>";
 
+export async function sendMagicLinkEmail(
+  to: string,
+  magicUrl: string
+): Promise<SendResult> {
+  try {
+    await getResend().emails.send({
+      from: FROM_ADDRESS,
+      to,
+      subject: "Je Haven inloglink — geldig 15 minuten",
+      html: `
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:20px;background:#F7F5F0;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;">
+  <div style="max-width:480px;margin:0 auto;">
+
+    <div style="text-align:center;padding:40px 0 28px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;">
+        <div style="width:40px;height:40px;background:#C8EBD4;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;">
+          <span style="font-size:20px;">🛡</span>
+        </div>
+        <span style="font-size:22px;font-weight:700;color:#476553;letter-spacing:-0.02em;">Haven</span>
+      </div>
+    </div>
+
+    <div style="background:#ffffff;border-radius:28px;padding:40px 36px;box-shadow:0 2px 12px rgba(71,101,83,0.08);">
+      <h1 style="margin:0 0 10px;font-size:22px;font-weight:700;color:#1B1C19;letter-spacing:-0.02em;">
+        Je inloglink is klaar.
+      </h1>
+      <p style="margin:0 0 32px;font-size:15px;color:#424843;line-height:1.65;">
+        Klik op de knop hieronder om in te loggen bij Haven.
+        De link is <strong>15 minuten</strong> geldig en kan maar één keer worden gebruikt.
+      </p>
+
+      <div style="text-align:center;margin-bottom:32px;">
+        <a href="${magicUrl}"
+           style="display:inline-block;background:#476553;color:#ffffff;padding:16px 44px;
+                  border-radius:100px;font-size:16px;font-weight:600;text-decoration:none;
+                  letter-spacing:0.01em;box-shadow:0 4px 16px rgba(71,101,83,0.25);">
+          Open Haven &rarr;
+        </a>
+      </div>
+
+      <div style="background:#F7F5F0;border-radius:14px;padding:16px 18px;">
+        <p style="margin:0;font-size:12px;color:#727973;line-height:1.6;">
+          <strong>🔒 Veiligheidsinfo:</strong> Haven vraagt nooit om je wachtwoord.
+          Als je dit niet hebt aangevraagd, kun je deze e-mail veilig negeren —
+          er is geen account aangemaakt.
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:28px 0 0;">
+      <p style="margin:0;font-size:12px;color:#9E9E9E;">
+        Haven &middot; Privacy is your right
+      </p>
+      <p style="margin:4px 0 0;font-size:12px;">
+        <a href="${process.env.NEXT_PUBLIC_APP_URL ?? "https://fellow-travellers.com"}"
+           style="color:#476553;text-decoration:none;">fellow-travellers.com</a>
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
+      `.trim(),
+    });
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
 export interface SendResult {
   ok: boolean;
   error?: string;

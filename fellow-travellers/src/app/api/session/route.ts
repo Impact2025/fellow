@@ -1,17 +1,24 @@
-import { db } from "@/db";
-import { sessions } from "@/db/schema";
-import { nanoid } from "nanoid";
+import { cookies } from "next/headers";
+import { verifySessionToken } from "@/lib/auth/session";
+import { findOrCreateSession } from "@/lib/auth/magic";
 
 export async function POST() {
   try {
-    const [session] = await db
-      .insert(sessions)
-      .values({ id: nanoid() as unknown as string })
-      .returning({ id: sessions.id });
+    const cookieStore = await cookies();
+    const token = cookieStore.get("haven_session")?.value;
 
-    return Response.json({ sessionId: session.id });
+    if (!token) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const session = await verifySessionToken(token);
+    if (!session) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const sessionId = await findOrCreateSession(session.userId);
+    return Response.json({ sessionId });
   } catch {
-    // Fallback: return a client-only UUID when DB is unavailable
-    return Response.json({ sessionId: nanoid(), offline: true });
+    return Response.json({ error: "Server error" }, { status: 500 });
   }
 }
